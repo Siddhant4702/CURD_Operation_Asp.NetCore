@@ -1,0 +1,67 @@
+﻿@using CURD_using_SDSclient.Models
+@model User
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>User Form</h2>
+
+<form method="post" onsubmit="return CheckInformation()" >
+    <div>
+        <label asp-for="FirstName">First Name:</label>
+        <input asp-for="FirstName" id="FirstName" class="form-control"   />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="LastName">Last Name:</label>
+        <input asp-for="LastName" id="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email">Email:</label>
+        <input asp-for="Email" id="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Add User</button>
+</form>
+
+
+<script type="text/javascript">
+
+    //Check Name contains number or not
+    function CheckInformation() {
+  
+        let Fname = document.getElementById('FirstName').value;
+        let email = document.getElementById("Email").value;
+        let LName = document.getElementById('LastName').value;
+        let lblError = document.getElementById("lblError");
+
+        let checkFirstName = Boolean(Fname.match(/\d/)); 
+        let checkLastName = Boolean(LName.match(/\d/));
+        
+        if (checkFirstName) {
+            alert('Please Enter Proper First Name');
+            return false; // Prevent form submission
+        }
+        if (checkLastName) {
+            alert('Please Enter Proper Last Name');
+            return false; // Prevent form submission
+        }
+        var expr = /^[^\d][\w.-]{7,}@@gmail\.com$/;
+
+
+    
+        let EmailCheck = !expr.test(email);
+        if (EmailCheck) {
+            alert('Invalid Email!');
+            return false; // Prevent form submission
+        }
+
+        // If all validations passed, you can submit the form
+        return true;
+    
+    }
+
+  
+</script>
